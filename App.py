@@ -55,7 +55,6 @@ ax.set_ylabel("Actual")
 st.pyplot(fig)
 
 # ------------------ Prediction ------------------
-st.subheader("Predict Transaction")
 st.header("🔍 Fraud Detection")
 
 row = st.number_input(
