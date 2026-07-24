@@ -10,8 +10,15 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 
 st.title("💳 Credit Card Fraud Detection")
 
-# Load Dataset
-df = pd.read_csv("creditcard.csv")
+import kagglehub
+import pandas as pd
+import os
+
+# Download dataset
+path = kagglehub.dataset_download("mlg-ulb/creditcardfraud")
+
+# Load CSV
+df = pd.read_csv(os.path.join(path, "creditcard.csv"))
 
 # ------------------ Graph ------------------
 st.subheader("Fraud vs Normal Transactions")
