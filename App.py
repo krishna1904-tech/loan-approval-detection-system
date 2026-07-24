@@ -36,10 +36,8 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# ------------------ Train Model ------------------
 model = RandomForestClassifier(random_state=42)
 model.fit(X_train, y_train)
-
 # ------------------ Accuracy ------------------
 pred = model.predict(X_test)
 
@@ -58,21 +56,27 @@ st.pyplot(fig)
 
 # ------------------ Prediction ------------------
 st.subheader("Predict Transaction")
+st.header("🔍 Fraud Detection")
 
 row = st.number_input(
-    "Enter Row Number (0 - {})".format(len(df)-1),
+    "Enter Transaction Row Number",
     min_value=0,
     max_value=len(df)-1,
     value=0
 )
 
-if st.button("Predict"):
+if st.button("Detect Fraud"):
 
-    sample = X.iloc[[row]]
+    transaction = X.iloc[[row]]
 
-    result = model.predict(sample)[0]
+    prediction = model.predict(transaction)[0]
+    probability = model.predict_proba(transaction)[0]
 
-    if result == 0:
+    if prediction == 0:
         st.success("✅ Normal Transaction")
     else:
         st.error("🚨 Fraudulent Transaction")
+
+    st.write("Prediction Probability:")
+    st.write(f"Normal: {probability[0]*100:.2f}%")
+    st.write(f"Fraud : {probability[1]*100:.2f}%")
