@@ -20,14 +20,6 @@ path = kagglehub.dataset_download("mlg-ulb/creditcardfraud")
 # Load CSV
 df = pd.read_csv(os.path.join(path, "creditcard.csv"))
 
-# ------------------ Graph ------------------
-st.subheader("Fraud vs Normal Transactions")
-
-fig, ax = plt.subplots()
-df["Class"].value_counts().plot(kind="bar", color=["green", "red"], ax=ax)
-ax.set_xticklabels(["Normal", "Fraud"], rotation=0)
-st.pyplot(fig)
-
 # ------------------ Prepare Data ------------------
 X = df.drop("Class", axis=1)
 y = df["Class"]
@@ -79,3 +71,11 @@ if st.button("Detect Fraud"):
     st.write("Prediction Probability:")
     st.write(f"Normal: {probability[0]*100:.2f}%")
     st.write(f"Fraud : {probability[1]*100:.2f}%")
+
+# ------------------ Graph ------------------
+st.subheader("Fraud vs Normal Transactions")
+
+fig, ax = plt.subplots()
+df["Class"].value_counts().plot(kind="bar", color=["green", "red"], ax=ax)
+ax.set_xticklabels(["Normal", "Fraud"], rotation=0)
+st.pyplot(fig)
